@@ -1,0 +1,127 @@
+<!-- when cart empty -->
+<div class="container  mt-5 p-5 " *ngIf="cartItems.length==0">
+<div class="row text-center">
+  <div class="col">
+    <img src="https://th.bing.com/th/id/OIP.w2bb6dPuRd4ykS0S-GlvsAHaEK?pid=ImgDet&rs=1" alt="cart empty">
+    <h3 class="mt-2">Your Cart is Empty</h3>
+        <a routerLink="/" class="btn btn-primary mt-2">Shop Now</a>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!-- cart with contents -->
+<div class="container mt-5 p-5 " *ngIf="cartItems.length!=0">
+    <div class="row">
+        <div class="col">
+            <table class="table border">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th> Name</th>
+                        <th> image</th>
+                        <th> Description</th>
+                        <th>Price</th>
+                        <th> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <!-- change according to user -->
+                    <tr *ngFor="let product of cartItems;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{product.title}}</td>
+                        <td>
+                            <img width="100px" [src]="product.image" alt="no image">
+                        </td>
+                        <td>
+                           {{product.description}}
+                        </td>
+                        <td>${{product.price}}</td>
+                        <td>
+                            <i (click)="removeItem(product)" class="fa fa-trash text-danger"></i>
+                        </td>
+                    </tr>
+                    <!-- stop changing row -->
+
+                    
+                            
+                </tbody>
+            </table>
+            <div style="float: right;">
+                <td class="ms-5 ">
+                    <button (click)="removeAllItems()" class="btn btn-danger ms-2">Empty Cart</button>
+                </td>
+                <td>
+                    <a routerLink="/" class="btn btn-primary ms-2">Shop More</a>
+                </td>
+                <td>
+                    <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">check out</button>
+
+
+
+
+                    <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Check out page</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h3>Delivary Address</h3>
+            <form class="border p-2">
+
+        <input placeholder="Customer Name" type="text" class="form-control mb-2">
+        <input placeholder="Customer Apartment / Flat/ House Number " type="text" class="form-control mb-2">
+        <input placeholder="Customer Pincode / Flat/ House Number " type="text" class="form-control mb-2">
+        <input placeholder="Customer State / Flat/ House Number " type="text" class="form-control mb-2">
+        <input placeholder="Customer Country / Flat/ House Number " type="text" class="form-control mb-2">
+        <input placeholder="Customer Contact Number / Flat/ House Number " type="text" class="form-control mb-2">
+
+
+
+
+
+
+
+
+            </form>
+            <div [ngSwitch]="grantTotal" class="mt-2 p-2">
+<h4>Discounts</h4>
+
+<span *ngSwitchCase="10.99"><img (click)="discount5per()" width="150px" src="https://www.bing.com/th?id=OIP.HjEx1c2jSL7XD1zziJROCgAAAA&w=296&h=178&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2" alt="no coopan"></span>
+
+<span  *ngSwitchCase="100"><img (click)="discount50per()" width="150 px "src="https://th.bing.com/th/id/OIP.uBW1hww72dl9l4ZxIzNa3gHaDt?w=348&h=175&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="no coopan"></span>
+
+<span *ngSwitchCase="50"><img (click)="discount30per()" width="150 px "src="https://th.bing.com/th/id/R.94bad8306e572875a5631cfbf596d4f6?rik=usddQQhdMlp5BA&riu=http%3a%2f%2fwww.floridasalestax.com%2fimages%2fblog%2fFL-Sales-Tax-on-Coupons.png&ehk=877vmZQYAtaYwv232DgCzw00FuF9ALmEtNtf%2bs9%2bvb8%3d&risl=&pid=ImgRaw&r=0"  alt="no coopan"></span>
+
+<span *ngSwitchDefault ><img (click)="discount3per()" width="170 px "src="https://th.bing.com/th/id/R.150cd775f38a7ba1615c469d61e83a53?rik=LGzlcwDiOMSsqw&riu=http%3a%2f%2fwww.regionalsupplyblog.com%2fwp-content%2fuploads%2f2014%2f02%2fpromo-20130306-185440.png&ehk=KyQj4MOd2iNUEXwb12ZmYBIX5lRD2fpNQN%2fEfJr8JnY%3d&risl=&pid=ImgRaw&r=0" alt="no coopan"></span>
+
+            </div>
+            <div *ngIf="updatedTotal">
+           <h5>New Total after Discount: <span> {{updatedTotal}} </span></h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button (click)="proceed()" type="button" class="btn btn-primary">Proceed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                </td>&nbsp; 
+                <td>
+                    <b for="">Grant Total : $ {{grantTotal}} </b>
+                </td>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
